@@ -16,22 +16,14 @@ def main(args):
     - passing data between models and views
     """
     in_files = args.infiles
-<<<<<<< HEAD
-    if not isinstance(in_Files, list):
-=======
     if not isinstance(in_files, list):
->>>>>>> style-fixes
         in_files = [args.infiles]
 
     if args.full_data_analysis:
         analyse_data(os.path.dirname(in_files[0]))
         return
 
-<<<<<<< HEAD
-    for filename in in_Files:
-=======
     for filename in in_files:
->>>>>>> style-fixes
         inflammation_data = models.load_csv(filename)
 
         view_data = {
