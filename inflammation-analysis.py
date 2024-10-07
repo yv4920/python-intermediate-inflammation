@@ -16,14 +16,14 @@ def main(args):
     - passing data between models and views
     """
     in_files = args.infiles
-    if not isinstance(InFiles, list):
+    if not isinstance(in_Files, list):
         in_files = [args.infiles]
 
     if args.full_data_analysis:
         analyse_data(os.path.dirname(InFiles[0]))
         return
 
-    for filename in InFiles:
+    for filename in in_Files:
         inflammation_data = models.load_csv(filename)
 
         view_data = {
