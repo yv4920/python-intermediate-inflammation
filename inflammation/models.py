@@ -2,8 +2,8 @@
 
 The Model layer is responsible for the 'business logic' part of the software.
 
-Patients' data is held in an inflammation table (2D array) where each row contains 
-inflammation data for a single patient taken over a number of days 
+Patients' data is held in an inflammation table (2D array) where each row contains
+inflammation data for a single patient taken over a number of days
 and each column represents a single day across all patients.
 """
 
@@ -16,7 +16,8 @@ def load_csv(filename):
 
     :param filename: Filename of CSV to load
     """
-    return np.loadtxt(fname=filename, delimiter=',')
+    return np.loadtxt(fname=filename, delimiter=",")
+
 
 def load_json(filename):
     """Load a numpy array from a JSON document.
@@ -34,10 +35,9 @@ def load_json(filename):
     :param filename: Filename of CSV to load
 
     """
-    with open(filename, 'r', encoding='utf-8') as file:
+    with open(filename, "r", encoding="utf-8") as file:
         data_as_json = json.load(file)
-        return [np.array(entry['observations']) for entry in data_as_json]
-
+        return [np.array(entry["observations"]) for entry in data_as_json]
 
 
 def daily_mean(data):
@@ -61,9 +61,26 @@ def daily_max(data):
 
 def daily_min(data):
     """Calculate the daily min of a 2D inflammation data array.
-    
+
     :param data: A 2D data array with inflammation data (each row contains measurements for a single patient across all days).
     :returns: An array of min values of measurements for each day.
     """
     return np.min(data, axis=0)
 
+def patient_normalise(data):
+    """
+    Normalise patient data from a 2D inflammation data array.
+
+    NaN values are ignored, and normalised to 0.
+
+    Negative values are rounded to 0.
+    """
+    if np.any(data<0):
+        raise ValueError("Inflammation values should not be negative")
+    maxima = np.nanmax(data, axis=1)
+    with np.errstate(invalid='ignore', divide='ignore'):
+        normalised = data / maxima[:, np.newaxis]
+    normalised[np.isnan(normalised)] = 0
+    normalised[normalised < 0] = 0
+    return normalised
+    
