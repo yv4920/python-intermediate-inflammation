@@ -4,6 +4,7 @@ import numpy as np
 import numpy.testing as npt
 import os
 import pytest
+from inflammation.models import standard_deviation
 
 def test_daily_mean_zeros():
     """Test that mean function works for an array of zeros."""
@@ -45,6 +46,5 @@ def test_load_from_json(tmpdir):
     ([0.0, 2.0], 1.0)
 ])
 def test_daily_standard_deviation(data, expected_standard_deviation):
-    from inflammation.models import s_dev
-    result_data = s_dev(data)['standard deviation']
+    result_data = standard_deviation(data)['standard deviation']
     npt.assert_approx_equal(result_data, expected_standard_deviation)
