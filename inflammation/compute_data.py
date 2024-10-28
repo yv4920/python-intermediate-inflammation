@@ -29,7 +29,7 @@ def analyse_data(data_dir):
     Gets all the inflammation csvs within a directory, works out the mean
     inflammation value for each day across all datasets, then graphs the
     standard deviation of these means."""
-    
+   
     data_source = CSVDataSource(data_dir)
     return analyse_data_from_datasouce(data_source)
 
@@ -40,7 +40,7 @@ def analyse_data_from_datasouce(data_source):
     Gets all the inflammation csvs within a directory, works out the mean
     inflammation value for each day across all datasets, then graphs the
     standard deviation of these means."""
-    
+   
     data = data_source.get_data()
     daily_standard_deviation = compute_standard_deviation_by_day(data)
     graph_data = {
